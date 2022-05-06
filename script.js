@@ -7,7 +7,7 @@ function loadData() {
     const img = document.createElement('img');
     img.src = 'http://source.unsplash.com/random';
     const title = document.createElement('h2');
-    title.textContent = 'Title Goes Here';
+    title.textContent = 'Title Goes Here' + i;
     const content = document.createElement('p');
     content.textContent = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quis quod et deleniti nobis quasi ad, adipisci perferendis totam, ducimus incidunt dolore aut, quae quaerat architecto quisquam repudiandae amet nostrum quidem?';
     card.append(img);

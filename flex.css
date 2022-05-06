@@ -1,0 +1,52 @@
+.masonry {
+  width: 1440px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 25%;
+}
+
+.card:nth-child(4n + 1) {
+  clear: left;
+}
+
+img {
+  width: 100%;
+  opacity: 0.1;
+  background-color: #eee;
+}
+
+h2 {
+  padding: 8px 0;
+}
+
+P {
+  color: #555;
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1439.98px) {
+  .masonry {
+    width: 96vw;
+    columns: 3;
+    column-gap: 20px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023.98px) {
+  .masonry {
+    width: 96vw;
+    columns: 2;
+    column-gap: 20px;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .masonry {
+    width: 96vw;
+    columns: 1;
+  }
+}

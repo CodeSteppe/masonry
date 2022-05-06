@@ -1,22 +1,69 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .masonry {
-  width: 1440px;
-  margin: 20px auto;
+  width: 1200px;
+  height: 500vh;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  align-content: space-between;
+  counter-reset: cards;
+}
+
+.masonry::before,
+.masonry::after {
+  content: "";
+  flex-basis: 100%;
+  width: 50px;
+  background-color: pink;
+  order: 2;
+}
+
+.masonry::after {
+  background-color: skyblue;
 }
 
 .card {
-  width: 25%;
+  width: 360px;
+  margin-bottom: 30px;
+  position: relative;
 }
 
-.card:nth-child(4n + 1) {
-  clear: left;
+.card::before {
+  counter-increment: cards;
+  content: counter(cards);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 20px;
+  margin: auto;
+  width: fit-content;
+  font-size: 46px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: grid;
+  place-items: center;
+}
+
+.card:nth-child(3n + 1) {
+  order: 1;
+}
+.card:nth-child(3n + 2) {
+  order: 2;
+}
+.card:nth-child(3n + 3) {
+  order: 3;
 }
 
 img {
   width: 100%;
-  opacity: 0.1;
   background-color: #eee;
 }
 
@@ -30,23 +77,15 @@ P {
 
 @media screen and (min-width: 1024px) and (max-width: 1439.98px) {
   .masonry {
-    width: 96vw;
-    columns: 3;
-    column-gap: 20px;
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023.98px) {
   .masonry {
-    width: 96vw;
-    columns: 2;
-    column-gap: 20px;
   }
 }
 
 @media screen and (max-width: 767.98px) {
   .masonry {
-    width: 96vw;
-    columns: 1;
   }
 }

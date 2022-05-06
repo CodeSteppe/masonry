@@ -4,7 +4,8 @@
   columns: 4;
   column-gap: 30px;
 }
-.item {
+
+.card {
   width: 100%;
   break-inside: avoid;
   margin-bottom: 30px;
@@ -12,6 +13,8 @@
 
 img {
   width: 100%;
+  opacity: 0.1;
+  background-color: #eee;
 }
 
 h2 {

@@ -1,11 +1,16 @@
 * {
+  --card-width: 20vw;
+  --divider-width: 2vw;
+}
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 .masonry {
-  width: 1200px;
+  width: calc(var(--card-width) * 4 + var(--divider-width)*3);
   height: 500vh;
   margin: 0 auto;
   display: flex;
@@ -15,21 +20,29 @@
   counter-reset: cards;
 }
 
-.masonry::before,
-.masonry::after {
+.divider1,
+.divider2,
+.divider3 {
   content: "";
   flex-basis: 100%;
-  width: 50px;
-  background-color: pink;
+  width: var(--divider-width);
+  background-color: #eee;
+}
+
+.divider1 {
+  order: 1;
+}
+
+.divider2 {
   order: 2;
 }
 
-.masonry::after {
-  background-color: skyblue;
+.divider3 {
+  order: 3;
 }
 
 .card {
-  width: 360px;
+  width: var(--card-width);
   margin-bottom: 30px;
   position: relative;
 }
@@ -52,14 +65,20 @@
   place-items: center;
 }
 
-.card:nth-child(3n + 1) {
+.card:nth-of-type(4n+1) {
   order: 1;
 }
-.card:nth-child(3n + 2) {
+
+.card:nth-of-type(4n+2) {
   order: 2;
 }
-.card:nth-child(3n + 3) {
+
+.card:nth-of-type(4n+3) {
   order: 3;
+}
+
+.card:nth-of-type(4n+4) {
+  order: 4;
 }
 
 img {
@@ -73,19 +92,4 @@ h2 {
 
 P {
   color: #555;
-}
-
-@media screen and (min-width: 1024px) and (max-width: 1439.98px) {
-  .masonry {
-  }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1023.98px) {
-  .masonry {
-  }
-}
-
-@media screen and (max-width: 767.98px) {
-  .masonry {
-  }
 }

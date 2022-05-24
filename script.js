@@ -5,7 +5,8 @@ function loadData() {
     const card = document.createElement('div');
     card.classList.add('card');
     const img = document.createElement('img');
-    img.src = 'http://source.unsplash.com/random';
+    const randomH = Math.round(Math.random() * 800) + 200;
+    img.src = `http://source.unsplash.com/random/400x${randomH}`;
     const title = document.createElement('h2');
     title.textContent = 'Title Goes Here' + i;
     const content = document.createElement('p');
@@ -13,6 +14,7 @@ function loadData() {
     card.append(img);
     card.append(title);
     card.append(content);
-    masonry.append(card);
+    const divider1 = masonry.querySelector('.divider1');
+    masonry.insertBefore(card, divider1);
   }
 }

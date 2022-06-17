@@ -1,7 +1,7 @@
 const masonry = document.querySelector('.masonry');
 
 let cardCount = 0;
-const colHeights = [0, 0, 0, 0];
+let colHeights = [0, 0, 0, 0];
 
 async function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
@@ -18,6 +18,7 @@ async function loadImage(src, element) {
 async function createCard() {
   const card = document.createElement('div');
   card.classList.add('card');
+  // hide first
   card.style.position = 'fixed';
   card.style.visibility = 'hidden';
   const randomH = Math.round(Math.random() * 500) + 300;
@@ -26,12 +27,14 @@ async function createCard() {
   if (img) {
     card.append(img);
     document.body.appendChild(card);
-    await sleep(500);
+    // make sure card renders properly
+    await sleep(200);
     const cardIndex = cardCount;
     const colIndex = (cardIndex + 1) % 4;
-    colHeights[colIndex] += card.clientHeight;
-    console.log('add card', card, cardIndex, card.clientHeight, `col ${colIndex} height`, colHeights[colIndex]);
-    masonry.style.height = Math.max(...colHeights) + 10 + 'px';
+    const cardHeight = card.clientHeight;
+    colHeights[colIndex] += cardHeight;
+    // console.log('add card', card, cardIndex, card.clientHeight, `col ${colIndex} height`, colHeights[colIndex]);
+    setHeight();
     const divider1 = masonry.querySelector('.divider1');
     masonry.insertBefore(card, divider1);
     card.style.position = '';
@@ -40,14 +43,26 @@ async function createCard() {
   }
 }
 
+function setHeight() {
+  masonry.style.height = Math.max(...colHeights) + 10 + 'px';
+}
+
+function resetHeight() {
+  colHeights = [0, 0, 0, 0];
+  document.querySelectorAll('.card').forEach((card, index) => {
+    const cardHeight = card.clientHeight;
+    const colIndex = (index + 1) % 4;
+    colHeights[colIndex] += cardHeight;
+  });
+  setHeight();
+}
+
 function loadData() {
   for (let i = 0; i < 12; i++) {
-    (createCard());
+    createCard();
   }
 }
 
 loadData();
 
-document.addEventListener('DOMContentLoaded', (e) => {
-  console.log('DOMContentLoaded');
-});
+window.addEventListener('resize', resetHeight);

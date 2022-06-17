@@ -26,6 +26,7 @@ async function createCard() {
     const cardIndex = masonry.querySelectorAll('.card').length - 1;
     const cardBottom = card.offsetTop + card.offsetHeight;
     return {
+      card,
       cardIndex,
       cardBottom
     }
@@ -34,16 +35,16 @@ async function createCard() {
 
 function loadData() {
   const tasks = [];
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 12; i++) {
     tasks.push(createCard());
   }
-  const currentHeight = masonry.clientHeight;
-  masonry.style.height = (currentHeight + 10000) + 'px';
+  // const currentHeight = masonry.clientHeight;
+  // masonry.style.height = (currentHeight + 3000) + 'px';
   Promise.all(tasks)
     .then((result) => {
       const bottoms = result.map(r => r.cardBottom);
       const maxBottom = Math.max(...bottoms);
-      console.log('all card rendered', maxBottom);
+      console.log('all card rendered', result);
       masonry.style.height = Math.ceil(maxBottom) + 30 + 'px';
     });
 }

@@ -1,19 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .masonry {
   width: 1440px;
   margin: 20px auto;
   columns: 4;
-  column-gap: 30px;
+  column-gap: 40px;
+  /* set card-count to 0 */
+  counter-reset: card-count;
 }
 
 .card {
   width: 100%;
   break-inside: avoid;
   margin-bottom: 30px;
+  counter-increment: card-count;
+  position: relative;
+}
+
+.card::before {
+  content: counter(card-count);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 4px 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  text-align: center;
+  font-size: 36px;
 }
 
 img {
   width: 100%;
-  opacity: 0.1;
   background-color: #eee;
 }
 
@@ -29,7 +51,7 @@ P {
   .masonry {
     width: 96vw;
     columns: 3;
-    column-gap: 20px;
+    column-gap: 30px;
   }
 }
 

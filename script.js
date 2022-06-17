@@ -15,7 +15,11 @@ function loadData() {
     card.append(title);
     card.append(content);
     const divider1 = masonry.querySelector('.divider1');
-    masonry.insertBefore(card, divider1);
+    if (divider1) {
+      masonry.insertBefore(card, divider1);
+    } else {
+      masonry.append(card);
+    }
   }
   const currentHeight = masonry.clientHeight;
   masonry.style.height = (currentHeight + 3000) + 'px';

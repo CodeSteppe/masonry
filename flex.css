@@ -11,7 +11,7 @@
 
 .masonry {
   width: calc(var(--card-width) * 4 + var(--divider-width)*3);
-  height: 500vh;
+  min-height: 100vh;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@
 
 .card {
   width: var(--card-width);
-  margin-bottom: 30px;
+  padding-bottom: 30px;
   position: relative;
 }
 
@@ -84,6 +84,7 @@
 img {
   width: 100%;
   background-color: #eee;
+  opacity: 0.1;
 }
 
 h2 {

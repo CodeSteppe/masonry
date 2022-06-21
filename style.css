@@ -96,7 +96,7 @@ img {
 @keyframes show {
   from {
     filter: opacity(0);
-    transform: perspective(1000px) rotateX(45deg);
+    transform: perspective(1000px) rotateX(20deg);
   }
 
   to {

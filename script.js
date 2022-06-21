@@ -2,6 +2,8 @@ const masonry = document.querySelector('.masonry');
 
 let cardCount = 0;
 let colHeights = [0, 0, 0, 0];
+let lastCard;
+let observer;
 
 async function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
@@ -15,7 +17,20 @@ async function loadImage(src, element) {
   });
 }
 
-async function createCard() {
+function observe(card) {
+  if (!observer) {
+    observer = new IntersectionObserver(entries => {
+      if (entries.length === 1 && entries[0].isIntersecting === true) {
+        console.log('load more', entries);
+        loadData();
+        observer.unobserve(entries[0].target);
+      }
+    });
+  }
+  observer.observe(card);
+}
+
+async function createCard(i) {
   const card = document.createElement('div');
   card.classList.add('card');
   // hide first
@@ -35,7 +50,6 @@ async function createCard() {
     const colIndex = (cardIndex + 1) % 4;
     const cardHeight = card.clientHeight;
     colHeights[colIndex] += cardHeight;
-    // console.log('add card', card, cardIndex, card.clientHeight, `col ${colIndex} height`, colHeights[colIndex]);
     setHeight();
     const divider1 = masonry.querySelector('.divider1');
     masonry.insertBefore(card, divider1);
@@ -43,6 +57,9 @@ async function createCard() {
     card.style.visibility = '';
     card.classList.add('show');
     cardCount++;
+    if (i === 9) {
+      observe(card);
+    }
   }
 }
 
@@ -61,8 +78,8 @@ function resetHeight() {
 }
 
 function loadData() {
-  for (let i = 0; i < 12; i++) {
-    createCard();
+  for (let i = 0; i < 10; i++) {
+    createCard(i);
   }
 }
 

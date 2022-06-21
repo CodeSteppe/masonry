@@ -7,6 +7,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transform-style: preserve-3d;
 }
 
 .masonry {
@@ -47,6 +48,13 @@
   position: relative;
 }
 
+.card.show {
+  transform-origin: center top;
+  animation-name: show;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
 .card::before {
   counter-increment: cards;
   content: counter(cards);
@@ -85,10 +93,14 @@ img {
   width: 100%;
 }
 
-h2 {
-  padding: 8px 0;
-}
+@keyframes show {
+  from {
+    filter: opacity(0);
+    transform: perspective(1000px) rotateX(45deg);
+  }
 
-P {
-  color: #555;
+  to {
+    filter: opacity(1);
+    transform: perspective(1000px) rotateX(0deg);
+  }
 }

@@ -20,6 +20,8 @@ async function createCard() {
   card.classList.add('card');
   // hide first
   card.style.position = 'fixed';
+  card.style.top = 0;
+  card.style.left = 0;
   card.style.visibility = 'hidden';
   const randomH = Math.round(Math.random() * 500) + 300;
   const src = `http://source.unsplash.com/random/400x${randomH}`;
@@ -39,6 +41,7 @@ async function createCard() {
     masonry.insertBefore(card, divider1);
     card.style.position = '';
     card.style.visibility = '';
+    card.classList.add('show');
     cardCount++;
   }
 }

@@ -67,6 +67,16 @@ function setHeight() {
   masonry.style.height = Math.max(...colHeights) + 10 + 'px';
 }
 
+// load data
+function loadData() {
+  for (let i = 0; i < 10; i++) {
+    createCard(i);
+  }
+}
+
+loadData();
+
+// handle window resize
 function resetHeight() {
   colHeights = [0, 0, 0, 0];
   document.querySelectorAll('.card').forEach((card, index) => {
@@ -76,13 +86,5 @@ function resetHeight() {
   });
   setHeight();
 }
-
-function loadData() {
-  for (let i = 0; i < 10; i++) {
-    createCard(i);
-  }
-}
-
-loadData();
 
 window.addEventListener('resize', resetHeight);

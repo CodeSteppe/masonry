@@ -1,4 +1,4 @@
-* {
+:root {
   --card-width: 20vw;
   --divider-width: 2vw;
 }
@@ -7,17 +7,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transform-style: preserve-3d;
 }
 
 .masonry {
-  width: calc(var(--card-width) * 4 + var(--divider-width)*3);
+  width: calc(var(--card-width) * 4 + var(--divider-width) * 3);
   min-height: 100vh;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  align-content: flex-start;
   counter-reset: cards;
 }
 
@@ -27,7 +25,7 @@
   content: "";
   flex-basis: 100%;
   width: var(--divider-width);
-  background-color: #eee;
+  /* background-color: #eee; */
 }
 
 .divider1 {
@@ -49,10 +47,10 @@
 }
 
 .card.show {
-  transform-origin: center top;
-  animation-name: show;
-  animation-duration: 1s;
+  animation-name: slideIn;
+  animation-duration: 0.5s;
   animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
 }
 
 .card::before {
@@ -62,6 +60,7 @@
   left: 0;
   right: 0;
   top: 20px;
+  z-index: 1;
   margin: auto;
   width: fit-content;
   font-size: 46px;
@@ -93,14 +92,14 @@ img {
   width: 100%;
 }
 
-@keyframes show {
+@keyframes slideIn {
   from {
     filter: opacity(0);
-    transform: perspective(1000px) rotateX(20deg);
+    transform: translateY(100px);
   }
 
   to {
     filter: opacity(1);
-    transform: perspective(1000px) rotateX(0deg);
+    transform: translateY(0);
   }
 }

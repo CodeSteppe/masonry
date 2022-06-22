@@ -2,6 +2,7 @@ const masonry = document.querySelector('.masonry');
 
 let cardCount = 0;
 let colHeights = [0, 0, 0, 0];
+let pageSize = 12;
 let lastCard;
 let observer;
 
@@ -57,7 +58,7 @@ async function createCard(i) {
     card.style.visibility = '';
     card.classList.add('show');
     cardCount++;
-    if (i === 9) {
+    if (i === pageSize - 1) {
       observe(card);
     }
   }
@@ -69,7 +70,7 @@ function setHeight() {
 
 // load data
 function loadData() {
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < pageSize; i++) {
     createCard(i);
   }
 }

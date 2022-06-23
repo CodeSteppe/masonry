@@ -1,28 +1,71 @@
+// DOM
 const masonry = document.querySelector('.masonry');
+const divider1 = masonry.querySelector('.divider1');
 
+// variables
 let cardCount = 0;
 let colHeights = [0, 0, 0, 0];
 let pageSize = 12;
 let lastCard;
 let observer;
 
-async function sleep(time) {
-  return new Promise((resolve) => setTimeout(resolve, time));
+// functions
+function loadData() {
+  for (let i = 0; i < pageSize; i++) {
+    createCard(i);
+  }
 }
 
-async function loadImage(src, element) {
+loadData();
+
+async function loadImage() {
+  const img = document.createElement('img');
+  const randomHeight = Math.round(Math.random() * 500) + 300;
+  const src = `http://source.unsplash.com/random/400x${randomHeight}`;
   return new Promise((resolve, reject) => {
-    element.onload = () => resolve(element);
-    element.onerror = reject;
-    element.src = src;
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
   });
+}
+
+async function createCard(i) {
+  const card = document.createElement('div');
+  card.classList.add('card');
+  // hide at first
+  card.style.position = 'fixed';
+  card.style.top = 0;
+  card.style.left = 0;
+  card.style.visibility = 'hidden';
+
+  const img = await loadImage();
+  if (img) {
+    card.append(img);
+    document.body.appendChild(card);
+    const cardIndex = cardCount;
+    const colIndex = (cardIndex + 1) % 4;
+    const cardHeight = card.clientHeight;
+    colHeights[colIndex] += cardHeight;
+    setMasonryHeight();
+    masonry.insertBefore(card, divider1);
+
+    // show card
+    card.style.position = '';
+    card.style.visibility = '';
+    card.classList.add('show');
+    cardCount++;
+
+    // load more when last card shows
+    if (i === pageSize - 1) {
+      observe(card);
+    }
+  }
 }
 
 function observe(card) {
   if (!observer) {
     observer = new IntersectionObserver(entries => {
       if (entries.length === 1 && entries[0].isIntersecting === true) {
-        console.log('load more', entries);
         loadData();
         observer.unobserve(entries[0].target);
       }
@@ -31,51 +74,9 @@ function observe(card) {
   observer.observe(card);
 }
 
-async function createCard(i) {
-  const card = document.createElement('div');
-  card.classList.add('card');
-  // hide first
-  card.style.position = 'fixed';
-  card.style.top = 0;
-  card.style.left = 0;
-  card.style.visibility = 'hidden';
-  const randomH = Math.round(Math.random() * 500) + 300;
-  const src = `http://source.unsplash.com/random/400x${randomH}`;
-  const img = await loadImage(src, document.createElement('img'));
-  if (img) {
-    card.append(img);
-    document.body.appendChild(card);
-    // make sure card renders properly
-    await sleep(200);
-    const cardIndex = cardCount;
-    const colIndex = (cardIndex + 1) % 4;
-    const cardHeight = card.clientHeight;
-    colHeights[colIndex] += cardHeight;
-    setHeight();
-    const divider1 = masonry.querySelector('.divider1');
-    masonry.insertBefore(card, divider1);
-    card.style.position = '';
-    card.style.visibility = '';
-    card.classList.add('show');
-    cardCount++;
-    if (i === pageSize - 1) {
-      observe(card);
-    }
-  }
-}
-
-function setHeight() {
+function setMasonryHeight() {
   masonry.style.height = Math.max(...colHeights) + 10 + 'px';
 }
-
-// load data
-function loadData() {
-  for (let i = 0; i < pageSize; i++) {
-    createCard(i);
-  }
-}
-
-loadData();
 
 // handle window resize
 function resetHeight() {
@@ -85,7 +86,7 @@ function resetHeight() {
     const colIndex = (index + 1) % 4;
     colHeights[colIndex] += cardHeight;
   });
-  setHeight();
+  setMasonryHeight();
 }
 
 window.addEventListener('resize', resetHeight);

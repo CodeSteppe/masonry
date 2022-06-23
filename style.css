@@ -29,18 +29,6 @@
   /* background-color: #eee; */
 }
 
-.divider1 {
-  order: 1;
-}
-
-.divider2 {
-  order: 2;
-}
-
-.divider3 {
-  order: 3;
-}
-
 .card {
   width: var(--card-width);
   padding-bottom: 30px;
@@ -52,6 +40,10 @@
   animation-duration: 0.5s;
   animation-fill-mode: both;
   animation-timing-function: ease-in-out;
+}
+
+.card img {
+  width: 100%;
 }
 
 .card::before {
@@ -73,24 +65,33 @@
   place-items: center;
 }
 
-.card:nth-of-type(4n+1) {
+/* set flex items order */
+.divider1 {
   order: 1;
 }
 
-.card:nth-of-type(4n+2) {
+.divider2 {
   order: 2;
 }
 
-.card:nth-of-type(4n+3) {
+.divider3 {
   order: 3;
 }
 
-.card:nth-of-type(4n+4) {
-  order: 4;
+.card:nth-of-type(4n + 1) {
+  order: 1;
 }
 
-img {
-  width: 100%;
+.card:nth-of-type(4n + 2) {
+  order: 2;
+}
+
+.card:nth-of-type(4n + 3) {
+  order: 3;
+}
+
+.card:nth-of-type(4n + 4) {
+  order: 4;
 }
 
 @keyframes slideIn {

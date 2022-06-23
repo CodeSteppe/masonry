@@ -17,6 +17,39 @@ function loadData() {
 
 loadData();
 
+async function createCard(i) {
+  const card = document.createElement('div');
+  card.classList.add('card');
+  // hide at first
+  card.style.position = 'fixed';
+  card.style.top = 0;
+  card.style.left = 0;
+  card.style.visibility = 'hidden';
+
+  const img = await loadImage();
+  if (img) {
+    card.append(img);
+    document.body.appendChild(card);
+    const cardIndex = cardCount;
+    const colIndex = (cardIndex + 1) % 4;
+    const cardHeight = card.clientHeight;
+    colHeights[colIndex] += cardHeight;
+    setMasonryHeight();
+    masonry.insertBefore(card, divider1);
+
+    // show card
+    card.style.position = '';
+    card.style.visibility = '';
+    card.classList.add('show');
+    cardCount++;
+
+    // load more when last card shows
+    if (i === pageSize - 1) {
+      observe(card);
+    }
+  }
+}
+
 function observe(card) {
   if (!observer) {
     observer = new IntersectionObserver(entries => {

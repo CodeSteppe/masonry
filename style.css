@@ -34,6 +34,10 @@
   animation-timing-function: ease-in-out;
 }
 
+.card img {
+  width: 100%;
+}
+
 .card::before {
   counter-increment: cards;
   content: counter(cards);

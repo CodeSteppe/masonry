@@ -11,33 +11,14 @@
 
 .masonry {
   width: calc(var(--card-width) * 4 + var(--divider-width) * 3);
+  /* height: 10000px; */
   min-height: 100vh;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  align-content: flex-start;
   counter-reset: cards;
-}
-
-.divider1,
-.divider2,
-.divider3 {
-  content: "";
-  flex-basis: 100%;
-  width: var(--divider-width);
-  /* background-color: #eee; */
-}
-
-.divider1 {
-  order: 1;
-}
-
-.divider2 {
-  order: 2;
-}
-
-.divider3 {
-  order: 3;
 }
 
 .card {
@@ -62,7 +43,7 @@
   top: 20px;
   z-index: 1;
   margin: auto;
-  width: fit-content;
+
   font-size: 50px;
   width: 80px;
   height: 80px;
@@ -72,24 +53,39 @@
   place-items: center;
 }
 
-.card:nth-of-type(4n+1) {
+.card img {
+  width: 100%;
+}
+
+.divider1,
+.divider2,
+.divider3 {
+  flex-basis: 100%;
+  width: var(--divider-width);
+  /* background-color: pink; */
+}
+
+/* flex items order */
+.divider1 {
   order: 1;
 }
-
-.card:nth-of-type(4n+2) {
+.divider2 {
   order: 2;
 }
-
-.card:nth-of-type(4n+3) {
+.divider3 {
   order: 3;
 }
-
-.card:nth-of-type(4n+4) {
-  order: 4;
+.card:nth-of-type(4n + 1) {
+  order: 1;
 }
-
-img {
-  width: 100%;
+.card:nth-of-type(4n + 2) {
+  order: 2;
+}
+.card:nth-of-type(4n + 3) {
+  order: 3;
+}
+.card:nth-of-type(4n + 4) {
+  order: 4;
 }
 
 @keyframes slideIn {
@@ -97,7 +93,6 @@ img {
     filter: opacity(0);
     transform: translateY(100px);
   }
-
   to {
     filter: opacity(1);
     transform: translateY(0);

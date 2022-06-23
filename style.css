@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap");
+
 :root {
-  --card-width: 20vw;
+  --card-width: 18vw;
   --divider-width: 2vw;
 }
 
@@ -7,6 +9,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
 }
 
 .masonry {
@@ -101,4 +107,47 @@
     filter: opacity(1);
     transform: translateY(0);
   }
+}
+
+#title {
+  font-family: "Rubik Moonrocks", cursive;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  height: 49vh;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 100;
+  margin: auto;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+#title .main {
+  color: rgba(135, 0, 121, 1);
+  font-size: 28vh;
+}
+
+#title .sub {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 7vh;
+  font-weight: bold;
+  text-transform: initial;
+}
+
+.sub .flex {
+  background-color: rgba(0, 54, 134, 0.8);
+  color: #fff;
+  padding: 0 2vw;
+  text-transform: uppercase;
+  border-radius: 20px;
+}
+
+.sub .js {
+  background-color: rgba(238, 255, 0, 0.8);
+  color: #000;
+  padding: 0 2vw;
+  text-transform: uppercase;
+  border-radius: 20px;
 }
